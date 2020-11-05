@@ -46,4 +46,17 @@ public class SignController {
         return "view/sign_up_complete";
     }
 
+    @GetMapping("signed")
+    public String getSigned(Model model) {
+        UserValue userValue = signService.whoIsSigned();
+        model.addAttribute("userValue", userValue);
+        return "view/signed";
+    }
+
+    @GetMapping("/signOut")
+    public String getSignOut() {
+        signService.signOut();
+        return "view/sign_in_form";
+    }
+
 }
