@@ -1,17 +1,18 @@
 package com.example.wsp_spring.model;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class DBRepositpry {
+public class DBRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public DBRepositpry(JdbcTemplate jdbcTemplate) {
+    public DBRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
@@ -27,7 +28,7 @@ public class DBRepositpry {
         return authnData;
     }
 
-    public int insertAuthnData(AuthnData authnData) {
+    public int insertAuthnData(AuthnData authnData) throws DataAccessException {
         String sql = "insert into authn_data(user_id, user_password, user_name) " +
                 "values(?, ?, ?)";
         String userId = authnData.getUserId();

@@ -6,23 +6,23 @@ import org.springframework.stereotype.Service;
 @Service
 public class SignService {
 
-    private final DBRepositpry dbRepositpry;
+    private final DBRepository dbRepository;
 
     @Autowired
-    public SignService(DBRepositpry dbRepositpry) {
-        this.dbRepositpry = dbRepositpry;
+    public SignService(DBRepository dbRepository) {
+        this.dbRepository = dbRepository;
     }
 
     public UserValue signIn(String userId, String userPassword) {
 
-        AuthnData authnData = dbRepositpry.findAuthnData(userId, userPassword);
+        AuthnData authnData = dbRepository.findAuthnData(userId, userPassword);
 
         return new UserValue(authnData.getUserId(), authnData.getUserName());
 
     }
 
     public int signUp(AuthnData authnData) {
-        return dbRepositpry.insertAuthnData(authnData);
+        return dbRepository.insertAuthnData(authnData);
     }
 
 }
