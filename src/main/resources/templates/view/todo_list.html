@@ -1,6 +1,27 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
 <p><span th:text="${userValue.shimei}">shimei</span> さんのToDoリスト</p>
+<div>
+    <form action="todo" method="post">
+        <div>タイトル:<input type="text" name="subject"></div>
+        <div>内容:<textarea name="body"></textarea></div>
+        <button type="submit">送信</button>
+    </form>
+</div>
+<table>
+    <tr>
+        <th>タイトル</th>
+        <th>本文</th>
+    </tr>
+    <tr th:each="todoItem : ${todoItems}">
+        <td th:text="${todoItem.subject}">
+            n番目のタイトル
+        </td>
+        <td th:text="${todoItem.body}">
+            n番目の本文
+        </td>
+    </tr>
+</table>
 <div><a href="signed">戻る</a></div>
 </body>
 </html>

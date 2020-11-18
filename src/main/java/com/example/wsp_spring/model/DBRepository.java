@@ -6,6 +6,8 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class DBRepository {
 
@@ -18,13 +20,12 @@ public class DBRepository {
 
     public AuthnData findAuthnData(String userId, String userPassword) {
         String sql = "select user_id, user_password, user_name " +
-                "from authn_data where user_id = ? and user_password = ?";
+                "from authn_data " +
+                "where user_id = ? and user_password = ?";
         AuthnData authnData = jdbcTemplate.queryForObject(sql,
                 new BeanPropertyRowMapper<>(AuthnData.class),
                 userId, userPassword);
-
         System.out.println(authnData.getUserId() + ", " + authnData.getUserName());
-
         return authnData;
     }
 
@@ -34,8 +35,18 @@ public class DBRepository {
         String userId = authnData.getUserId();
         String userPassword = authnData.getUserPassword();
         String userName = authnData.getUserName();
-
         return jdbcTemplate.update(sql, userId, userPassword, userName);
+    }
+
+    public int insertToDoItem(String userId, String subject, String body) {
+        String sql = "insert into todo_item " +
+                "values(?, ?, ?)";
+        return jdbcTemplate.update(sql, userId, subject, body);
+    }
+
+    public List<ToDoItem> findToDoItemsByUserId(String userId) {
+        String sql = "select * from todo_item where user_id = ?";
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(ToDoItem.class), userId);
     }
 
 }

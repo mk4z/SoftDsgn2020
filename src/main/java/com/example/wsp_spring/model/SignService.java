@@ -13,7 +13,8 @@ public class SignService {
     private final DBRepository dbRepository;
 
     @Autowired
-    public SignService(HttpSession session, DBRepository dbRepository) {
+    public SignService(HttpSession session,
+                       DBRepository dbRepository) {
         this.session = session;
         this.dbRepository = dbRepository;
     }
